@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\Http;
 class ChatbotController extends Controller
 {
     private string $systemPrompt = <<<PROMPT
-You are a helpful AI assistant for Barangay Smart Connect, a barangay management system in the Philippines.
+You are a helpful AI assistant for YCA Hub, a barangay management system in the Philippines.
 You help residents with questions about barangay services, document requirements, fees, and processes.
 You can answer questions about:
 - Barangay Clearance (requirements: valid ID, proof of residency — processing: 1-2 days — free)

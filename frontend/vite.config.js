@@ -1,6 +1,6 @@
-import vue from '@vitejs/plugin-vue'
-import { defineConfig } from 'vite'
-import vuetify from 'vite-plugin-vuetify'
+import { defineConfig } from "vite"
+import vue from "@vitejs/plugin-vue"
+import vuetify from "vite-plugin-vuetify"
 
 export default defineConfig({
   plugins: [
@@ -8,15 +8,15 @@ export default defineConfig({
     vuetify({ autoImport: true }),
   ],
   resolve: {
-    dedupe: ['vue', 'vue-router', 'pinia', 'vuetify'],  // ← KEY FIX
+    dedupe: ["vue", "vue-router", "pinia", "vuetify"],
   },
   server: {
-    host: '0.0.0.0',
+    host: "0.0.0.0",
     port: 5173,
-    allowedHosts: ['app.my-yca.com'],
+    allowedHosts: ["app.my-yca.com"],
     proxy: {
-      '/api': {
-        target: 'http://nginx:80',
+      "/api": {
+        target: "http://nginx:80",
         changeOrigin: true,
       },
     },

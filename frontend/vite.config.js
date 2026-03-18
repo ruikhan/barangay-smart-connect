@@ -4,20 +4,16 @@ import vuetify from 'vite-plugin-vuetify'
 
 export default defineConfig({
   plugins: [
-    vue({
-      template: {
-        compilerOptions: {
-          // suppress known Vuetify slot warnings
-          whitespace: 'condense',
-        }
-      }
-    }),
+    vue(),
     vuetify({ autoImport: true }),
   ],
+  resolve: {
+    dedupe: ['vue', 'vue-router', 'pinia', 'vuetify'],  // ← KEY FIX
+  },
   server: {
     host: '0.0.0.0',
     port: 5173,
-    allowedHosts: ['app.my-yca.com'],   // ← ADD THIS
+    allowedHosts: ['app.my-yca.com'],
     proxy: {
       '/api': {
         target: 'http://nginx:80',

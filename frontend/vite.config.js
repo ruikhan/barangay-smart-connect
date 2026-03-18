@@ -4,7 +4,14 @@ import vuetify from 'vite-plugin-vuetify'
 
 export default defineConfig({
   plugins: [
-    vue(),
+    vue({
+      template: {
+        compilerOptions: {
+          // suppress known Vuetify slot warnings
+          whitespace: 'condense',
+        }
+      }
+    }),
     vuetify({ autoImport: true }),
   ],
   server: {

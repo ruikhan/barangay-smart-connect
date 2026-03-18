@@ -1,5 +1,5 @@
 import axios from 'axios'
-import { createPinia } from 'pinia'
+import { createPinia, setActivePinia } from 'pinia'
 import { createApp } from 'vue'
 import { createVuetify } from 'vuetify'
 import * as components from 'vuetify/components'
@@ -15,6 +15,10 @@ axios.defaults.baseURL = import.meta.env.PROD
   ? 'https://api.my-yca.com'
   : ''
 axios.defaults.headers.common['Accept'] = 'application/json'
+
+// ── Create Pinia and set active BEFORE router ────
+const pinia = createPinia()
+setActivePinia(pinia)
 
 const vuetify = createVuetify({
   components,
@@ -36,11 +40,10 @@ const vuetify = createVuetify({
   },
 })
 
-// ── App metadata ─────────────────────────────────
 document.title = 'YCA Hub'
 
 createApp(App)
-  .use(createPinia())
+  .use(pinia)
   .use(router)
   .use(vuetify)
   .mount('#app')

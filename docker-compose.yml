@@ -83,7 +83,7 @@ services:
       - "5173:5173"
     networks:
       - barangay_net
-    command: sh -c "npm run dev -- --host"
+    command: sh -c "npm install && npm run dev -- --host"
 
 volumes:
   barangay_mysql_data:

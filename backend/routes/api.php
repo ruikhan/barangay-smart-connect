@@ -6,8 +6,9 @@ use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\IncidentReportController;
 use App\Http\Controllers\Api\MessageController;
 use App\Http\Controllers\Api\ServiceRequestController;
-use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Api\NotificationController;
 use App\Http\Controllers\Api\ChatbotController;
+use Illuminate\Support\Facades\Route;
 
 // ── Public routes ─────────────────────────────────────────
 Route::prefix('auth')->group(function () {
@@ -52,22 +53,29 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('/messages/thread/{userId}', [MessageController::class, 'thread']);
     Route::post('/messages/send',           [MessageController::class, 'send']);
 
-// Broadcasting auth for Sanctum token users
-Route::post('/broadcasting/auth', function (\Illuminate\Http\Request $request) {
-    $pusher = new \Pusher\Pusher(
-        config('broadcasting.connections.pusher.key'),
-        config('broadcasting.connections.pusher.secret'),
-        config('broadcasting.connections.pusher.app_id'),
-        config('broadcasting.connections.pusher.options')
-    );
+    // ── Notifications ─────────────────────────────────────
+    Route::get('/notifications',              [NotificationController::class, 'index']);
+    Route::get('/notifications/unread-count', [NotificationController::class, 'unreadCount']);
+    Route::patch('/notifications/read-all',   [NotificationController::class, 'markAllRead']);
+    Route::patch('/notifications/{id}/read',  [NotificationController::class, 'markRead']);
+    Route::delete('/notifications/{id}',      [NotificationController::class, 'destroy']);
 
-    $auth = $pusher->authorizeChannel(
-        $request->channel_name,
-        $request->socket_id
-    );
+    // Broadcasting auth for Sanctum token users
+    Route::post('/broadcasting/auth', function (\Illuminate\Http\Request $request) {
+        $pusher = new \Pusher\Pusher(
+            config('broadcasting.connections.pusher.key'),
+            config('broadcasting.connections.pusher.secret'),
+            config('broadcasting.connections.pusher.app_id'),
+            config('broadcasting.connections.pusher.options')
+        );
 
-    return response($auth);
-});
+        $auth = $pusher->authorizeChannel(
+            $request->channel_name,
+            $request->socket_id
+        );
+
+        return response($auth);
+    });
 
     // ── Admin only ────────────────────────────────────────
     Route::middleware('admin')->prefix('admin')->group(function () {

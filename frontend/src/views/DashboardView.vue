@@ -51,7 +51,7 @@
     </v-row>
 
     <!-- Recent requests + Quick actions -->
-    <v-row dense>
+    <v-row density="compact">
       <!-- Recent requests -->
       <v-col cols="12" md="8">
         <v-card rounded="xl" flat class="pa-3">

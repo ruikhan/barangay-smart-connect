@@ -1,3 +1,4 @@
+import axios from 'axios'; // ← ADD
 import { createPinia } from 'pinia'
 import { createApp } from 'vue'
 import { createVuetify } from 'vuetify'
@@ -8,6 +9,12 @@ import router from './router'
 
 import '@mdi/font/css/materialdesignicons.css'
 import 'vuetify/styles'
+
+// ── Axios global config ──────────────────────────
+axios.defaults.baseURL = import.meta.env.PROD
+  ? 'https://api.my-yca.com'   // live tunnel
+  : ''                          // dev: use Vite proxy
+axios.defaults.headers.common['Accept'] = 'application/json'
 
 const vuetify = createVuetify({
   components,

@@ -1,6 +1,7 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import MainLayout from '../layouts/MainLayout.vue'
 import { useAuthStore } from '../stores/auth'
+
+// ← REMOVED: import MainLayout from '../layouts/MainLayout.vue'
 
 const routes = [
   {
@@ -17,7 +18,7 @@ const routes = [
   },
   {
     path: '/',
-    component: MainLayout,
+    component: () => import('../layouts/MainLayout.vue'),  // ← lazy load
     meta: { requiresAuth: true },
     children: [
       { path: '',           redirect: '/dashboard' },

@@ -10,6 +10,7 @@ export default defineConfig({
   server: {
     host: '0.0.0.0',
     port: 5173,
+    allowedHosts: ['app.my-yca.com'],   // ← ADD THIS
     proxy: {
       '/api': {
         target: 'http://nginx:80',

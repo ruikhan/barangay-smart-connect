@@ -1,4 +1,5 @@
 <template>
+  <v-app>
   <div class="login-root">
     <div class="blob blob-1"/>
     <div class="blob blob-2"/>
@@ -77,6 +78,7 @@
       Developer — Justine Philip Villarosa © {{ new Date().getFullYear() }}
     </div>
   </div>
+  </v-app>
 </template>
 
 <script setup>

@@ -1,5 +1,5 @@
-import { defineConfig } from "vite"
 import vue from "@vitejs/plugin-vue"
+import { defineConfig } from "vite"
 import vuetify from "vite-plugin-vuetify"
 
 export default defineConfig({
@@ -13,11 +13,17 @@ export default defineConfig({
   server: {
     host: "0.0.0.0",
     port: 5173,
-    allowedHosts: ["app.my-yca.com"],
+    allowedHosts: ["app.my-yca.com", "localhost"],
     proxy: {
       "/api": {
         target: "http://nginx:80",
         changeOrigin: true,
+        secure: false,
+      },
+      "/broadcasting": {
+        target: "http://nginx:80",
+        changeOrigin: true,
+        secure: false,
       },
     },
   },
